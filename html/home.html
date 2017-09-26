@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 sPosition;  
+attribute vec4 gPosition;  
+uniform float tween;
+void main()
+{
+   gl_Position = (1.0 - tween) * sPosition + tween * gPosition;
+    
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+void main()
+{
+    gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 );
+}
+</script>
+
+<!--Ed Angel's WebGL support libraries-->
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="../Common/webgl-debug.js"></script>
+<script type="text/javascript" src="genie-to-circle.js"></script>
+
+<body>
+<!--The style for the canvas should make the text in the caption appear to its right  -->
+<canvas id="gl-canvas" style="float:left; margin-right: 5px;" width="500" height="700">>
+</canvas>
+<div id="caption-for-the-goal">Genie-to-circle</div>
+
+</body>
+</html>
