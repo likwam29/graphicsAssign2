@@ -188,9 +188,11 @@ function render() {
     gl.clear( gl.COLOR_BUFFER_BIT );
 
     if (goingToCircle) {
-		pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
+		tweenFactor = Math.min(tweenFactor + 0.002, 1.0);
+		pMatrix = ortho((firstFrac.LEFT + secondFrac.LEFT) + tweenFactor, (firstFrac.RIGHT + secondFrac.RIGHT) + tweenFactor, (firstFrac.BOTTOM + secondFrac.BOTTOM) + tweenFactor, (firstFrac.TOP + secondFrac.TOP) + tweenFactor, -1.0, 1.0);
+		
 		//pMatrix = ortho(secondFrac.LEFT, secondFrac.RIGHT, secondFrac.BOTTOM, secondFrac.TOP, -1.0, 1.0);
-        tweenFactor = Math.min(tweenFactor + 0.01, 1.0);
+        
         if (tweenFactor >= 1.0)  {
             goingToCircle = false;
             document.getElementById('caption-for-the-goal').innerHTML="Circle-to-genie";
@@ -198,9 +200,11 @@ function render() {
 	
     }
     else {
-		//pMatrix = ortho(secondFrac.LEFT, secondFrac.RIGHT, secondFrac.BOTTOM, secondFrac.TOP, -1.0, 1.0);
-		pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
-        tweenFactor = Math.max(tweenFactor - 0.01, 0.0);
+		tweenFactor = Math.max(tweenFactor - 0.002, 0.0);
+		pMatrix = ortho((secondFrac.LEFT + firstFrac.LEFT) + tweenFactor, (secondFrac.RIGHT + firstFrac.RIGHT) + tweenFactor, (secondFrac.BOTTOM + firstFrac.BOTTOM) + tweenFactor, (secondFrac.TOP + firstFrac.TOP) + tweenFactor, -1.0, 1.0);
+		
+		//pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
+        
         if (tweenFactor <= 0.0) {
             goingToCircle = true;
             document.getElementById('caption-for-the-goal').innerHTML="Genie-to-circle";
