@@ -1,0 +1,41 @@
+{
+  "transformations": [
+    {
+      "prob": 0.13,
+      "trans_y": -1.74,
+      "trans_x": 0.63,
+      "rotate_scaleyy": -0.03,
+      "rotate_scaleyx": 0.31,
+      "rotate_scalexy": 0.22,
+      "rotate_scalexx": 0.04
+    },
+    {
+      "prob": 0.01,
+      "trans_y": -1.35,
+      "trans_x": -0.17,
+      "rotate_scaleyy": 0.26,
+      "rotate_scaleyx": -0.32,
+      "rotate_scalexy": 0.0,
+      "rotate_scalexx": -0.02
+    },
+    {
+      "prob": 0.74,
+      "trans_y": 1.03,
+      "trans_x": -0.02,
+      "rotate_scaleyy": 0.73,
+      "rotate_scaleyx": -0.03,
+      "rotate_scalexy": 0.06,
+      "rotate_scalexx": 0.79
+    },
+    {
+      "prob": 0.12,
+      "trans_y": -0.94,
+      "trans_x": -0.68,
+      "rotate_scaleyy": -0.04,
+      "rotate_scaleyx": 0.35,
+      "rotate_scalexy": -0.3,
+      "rotate_scalexx": -0.03
+    }
+  ],
+  "name": "curl"
+}

@@ -1,0 +1,41 @@
+{
+  "transformations": [
+    {
+      "prob": 0.25,
+      "trans_y": 1.27,
+      "trans_x": -2.56,
+      "rotate_scaleyy": 0.0,
+      "rotate_scaleyx": 0.43,
+      "rotate_scalexy": 0.43,
+      "rotate_scalexx": 0.0
+    },
+    {
+      "prob": 0.25,
+      "trans_y": 2.57,
+      "trans_x": 1.3,
+      "rotate_scaleyy": 0.43,
+      "rotate_scaleyx": 0.0,
+      "rotate_scalexy": 0.0,
+      "rotate_scalexx": 0.43
+    },
+    {
+      "prob": 0.25,
+      "trans_y": 2.58,
+      "trans_x": -1.26,
+      "rotate_scaleyy": 0.43,
+      "rotate_scaleyx": 0.0,
+      "rotate_scalexy": 0.0,
+      "rotate_scalexx": 0.43
+    },
+    {
+      "prob": 0.25,
+      "trans_y": 1.24,
+      "trans_x": 2.58,
+      "rotate_scaleyy": 0.0,
+      "rotate_scaleyx": 0.43,
+      "rotate_scalexy": -0.43,
+      "rotate_scalexx": 0.0
+    }
+  ],
+  "name": "FOUR"
+}

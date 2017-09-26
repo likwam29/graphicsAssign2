@@ -1,0 +1,41 @@
+{
+  "transformations": [
+    {
+      "prob": 0.1,
+      "trans_y": -2.11,
+      "trans_x": -0.08,
+      "rotate_scaleyy": 0.47,
+      "rotate_scaleyx": 0.05,
+      "rotate_scalexy": -0.19,
+      "rotate_scalexx": 0.13
+    },
+    {
+      "prob": 0.4,
+      "trans_y": -0.75,
+      "trans_x": 2.09,
+      "rotate_scaleyy": -0.45,
+      "rotate_scaleyx": -0.32,
+      "rotate_scalexy": 0.43,
+      "rotate_scalexx": -0.33
+    },
+    {
+      "prob": 0.36,
+      "trans_y": -0.74,
+      "trans_x": -1.62,
+      "rotate_scaleyy": 0.26,
+      "rotate_scaleyx": 0.47,
+      "rotate_scalexy": -0.4,
+      "rotate_scalexx": 0.3
+    },
+    {
+      "prob": 0.14,
+      "trans_y": 1.62,
+      "trans_x": 0.02,
+      "rotate_scaleyy": 0.51,
+      "rotate_scaleyx": 0.04,
+      "rotate_scalexy": 0.0,
+      "rotate_scalexx": 0.2
+    }
+  ],
+  "name": "leafy"
+}

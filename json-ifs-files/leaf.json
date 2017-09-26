@@ -1,0 +1,41 @@
+{
+  "transformations": [
+    {
+      "prob": 0.06,
+      "trans_y": -1.31,
+      "trans_x": -0.08,
+      "rotate_scaleyy": 0.51,
+      "rotate_scaleyx": 0.0,
+      "rotate_scalexy": 0.01,
+      "rotate_scalexx": 0.14
+    },
+    {
+      "prob": 0.37,
+      "trans_y": -0.75,
+      "trans_x": 1.49,
+      "rotate_scaleyy": 0.5,
+      "rotate_scaleyx": -0.45,
+      "rotate_scalexy": 0.52,
+      "rotate_scalexx": 0.43
+    },
+    {
+      "prob": 0.36,
+      "trans_y": -0.74,
+      "trans_x": -1.62,
+      "rotate_scaleyy": 0.47,
+      "rotate_scaleyx": 0.47,
+      "rotate_scalexy": -0.49,
+      "rotate_scalexx": 0.45
+    },
+    {
+      "prob": 0.21,
+      "trans_y": 1.62,
+      "trans_x": 0.02,
+      "rotate_scaleyy": 0.51,
+      "rotate_scaleyx": 0.0,
+      "rotate_scalexy": 0.0,
+      "rotate_scalexx": 0.49
+    }
+  ],
+  "name": "leaf"
+}
