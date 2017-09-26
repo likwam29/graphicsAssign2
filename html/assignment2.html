@@ -8,10 +8,11 @@
 attribute vec4 sPosition;  
 attribute vec4 gPosition;  
 uniform float tween;
+uniform mat4 projection;
 void main()
 {
-   gl_Position = (1.0 - tween) * sPosition + tween * gPosition;
-    
+   gl_Position = projection * ((1.0 - tween) * sPosition + tween * gPosition);
+    gl_PointSize = 2.0;
 }
 </script>
 
@@ -30,7 +31,10 @@ void main()
 <script type="text/javascript" src="../Common/initShaders.js"></script>
 <script type="text/javascript" src="../Common/MV.js"></script>
 <script type="text/javascript" src="../Common/webgl-debug.js"></script>
-<script type="text/javascript" src="genie-to-circle.js"></script>
+<script type="text/javascript" src="frac1.js"></script>
+<script type="text/javascript" src="frac2.js"></script>
+<script type="text/javascript" src="assignment2.js"></script>
+
 
 <body>
 <!--The style for the canvas should make the text in the caption appear to its right  -->
