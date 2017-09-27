@@ -15,17 +15,19 @@ var canvas;
 var pMatrix;
 var projection;
 
+// this one messes with the dragon
 var firstFrac = {
-	LEFT: -3.5,
-	RIGHT: 3.75,
-	BOTTOM: -2.5,
-	TOP: 4.0
+	LEFT: -14.5,
+	RIGHT: 14.75,
+	BOTTOM: -5.5,
+	TOP: 15.0
 };
 
+// this one messes with carpet
 var secondFrac = {
 	LEFT: -10.0,
 	RIGHT: 10.0,
-	BOTTOM: 0.0,
+	BOTTOM: -10.0,
 	TOP: 10.0
 };
 
@@ -186,10 +188,16 @@ function genieAndCircle(size) {
 function render() {
 
     gl.clear( gl.COLOR_BUFFER_BIT );
+	
+	var left, right, bottom, top;
 
     if (goingToCircle) {
-		tweenFactor = Math.min(tweenFactor + 0.002, 1.0);
-		pMatrix = ortho((firstFrac.LEFT + secondFrac.LEFT) + tweenFactor, (firstFrac.RIGHT + secondFrac.RIGHT) + tweenFactor, (firstFrac.BOTTOM + secondFrac.BOTTOM) + tweenFactor, (firstFrac.TOP + secondFrac.TOP) + tweenFactor, -1.0, 1.0);
+		tweenFactor = Math.min(tweenFactor + 0.015, 1.0);
+		left = (tweenFactor * firstFrac.LEFT) + ((1-tweenFactor) * secondFrac.LEFT);
+		right = (tweenFactor * firstFrac.RIGHT) + ((1-tweenFactor) * secondFrac.RIGHT); 
+		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
+		top = (tweenFactor * firstFrac.TOP) + ((1-tweenFactor) * secondFrac.TOP); 		
+		pMatrix = ortho(left, right, bottom, top, -1.0, 1.0);
 		
 		//pMatrix = ortho(secondFrac.LEFT, secondFrac.RIGHT, secondFrac.BOTTOM, secondFrac.TOP, -1.0, 1.0);
         
@@ -200,8 +208,12 @@ function render() {
 	
     }
     else {
-		tweenFactor = Math.max(tweenFactor - 0.002, 0.0);
-		pMatrix = ortho((secondFrac.LEFT + firstFrac.LEFT) + tweenFactor, (secondFrac.RIGHT + firstFrac.RIGHT) + tweenFactor, (secondFrac.BOTTOM + firstFrac.BOTTOM) + tweenFactor, (secondFrac.TOP + firstFrac.TOP) + tweenFactor, -1.0, 1.0);
+		tweenFactor = Math.max(tweenFactor - 0.015, 0.0);
+		left = (tweenFactor * firstFrac.LEFT) + ((1-tweenFactor) * secondFrac.LEFT);
+		right = (tweenFactor * firstFrac.RIGHT) + ((1-tweenFactor) * secondFrac.RIGHT); 
+		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
+		top = (tweenFactor * firstFrac.TOP) + ((1-tweenFactor) * secondFrac.TOP);
+		pMatrix = ortho(left, right, bottom, top, -1.0, 1.0);
 		
 		//pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
         
