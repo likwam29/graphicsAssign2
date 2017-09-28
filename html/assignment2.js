@@ -228,3 +228,11 @@ function render() {
     gl.drawArrays( gl.Points, 0, vertices.length/2 ); // Why divide by 2?
     requestAnimFrame( render );
 }
+
+window.onkeyup = function(e) {
+   var key = e.keyCode ? e.keyCode : e.which;
+	// 82 == 'r'
+   if (key == 82) {
+		goingToCircle = !goingToCircle;
+   }
+}
