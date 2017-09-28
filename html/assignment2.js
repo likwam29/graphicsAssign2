@@ -245,10 +245,11 @@ window.onkeyup = function(e) {
 	   tweenRate = Math.min(tweenRate + .01, .3);
    }else if(key == 40){
 	   // key down
-	   tweenRate = Math.max(tweenRate - .01, .01);
+	   tweenRate = Math.max(tweenRate - .01, .0001);
    }else if( key == 69){
 	   //explode
 	   tweenRate = -.03
-	   
+   }else{
+	   tweenRate = .015;
    }
 }
