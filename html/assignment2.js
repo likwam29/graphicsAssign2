@@ -11,9 +11,11 @@ var tweenLoc;    // Location of the shader's uniform tweening variable
 var goingToCircle = true;
 var tweenFactor = 0.0;
 var canvas;
+var tweenRate = 0.015;
 
 var pMatrix;
 var projection;
+var u_colorLocation;
 
 // this one messes with the dragon
 var firstFrac = {
@@ -94,7 +96,9 @@ window.onload = function init(){
         8              // Specifies a pointer to the first component 
             // of the first generic vertex attribute in the array.
                           );
-    gl.enableVertexAttribArray( gPosition );    
+    gl.enableVertexAttribArray( gPosition );
+	
+	u_colorLocation = gl.getUniformLocation(program, "u_Color");
 
     tweenLoc = gl.getUniformLocation(program, "tween");
 	
@@ -192,7 +196,7 @@ function render() {
 	var left, right, bottom, top;
 
     if (goingToCircle) {
-		tweenFactor = Math.min(tweenFactor + 0.015, 1.0);
+		tweenFactor = Math.min(tweenFactor + tweenRate, 1.0);
 		left = (tweenFactor * firstFrac.LEFT) + ((1-tweenFactor) * secondFrac.LEFT);
 		right = (tweenFactor * firstFrac.RIGHT) + ((1-tweenFactor) * secondFrac.RIGHT); 
 		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
@@ -208,7 +212,7 @@ function render() {
 	
     }
     else {
-		tweenFactor = Math.max(tweenFactor - 0.015, 0.0);
+		tweenFactor = Math.max(tweenFactor - tweenRate, 0.0);
 		left = (tweenFactor * firstFrac.LEFT) + ((1-tweenFactor) * secondFrac.LEFT);
 		right = (tweenFactor * firstFrac.RIGHT) + ((1-tweenFactor) * secondFrac.RIGHT); 
 		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
@@ -222,6 +226,7 @@ function render() {
             document.getElementById('caption-for-the-goal').innerHTML="Genie-to-circle";
         }           
     }
+	gl.uniform4f(u_colorLocation, 1.0*tweenFactor, 1.0*tweenFactor, 1.0*tweenFactor, 1);
 	gl.uniformMatrix4fv( projection, false, flatten(pMatrix) );
 	
     gl.uniform1f(tweenLoc, tweenFactor);
@@ -230,9 +235,20 @@ function render() {
 }
 
 window.onkeyup = function(e) {
+	//debugger;
    var key = e.keyCode ? e.keyCode : e.which;
 	// 82 == 'r'
    if (key == 82) {
 		goingToCircle = !goingToCircle;
+   }else if(key == 38){
+	   // key up
+	   tweenRate = Math.min(tweenRate + .01, .3);
+   }else if(key == 40){
+	   // key down
+	   tweenRate = Math.max(tweenRate - .01, .01);
+   }else if( key == 69){
+	   //explode
+	   tweenRate = -.03
+	   
    }
 }
