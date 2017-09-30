@@ -9,6 +9,7 @@ var vertices = [];
 var size = 0.25;          // Genie parameter
 var tweenLoc;    // Location of the shader's uniform tweening variable
 var goingToCircle = true;
+var bounce = false;
 var tweenFactor = 0.0;
 var canvas;
 var tweenRate = 0.015;
@@ -206,8 +207,10 @@ function render() {
 		//pMatrix = ortho(secondFrac.LEFT, secondFrac.RIGHT, secondFrac.BOTTOM, secondFrac.TOP, -1.0, 1.0);
         
         if (tweenFactor >= 1.0)  {
-            goingToCircle = false;
-            document.getElementById('caption-for-the-goal').innerHTML="Circle-to-genie";
+			if(bounce){
+				goingToCircle = !goingToCircle;
+			}
+            document.getElementById('caption-for-the-goal').innerHTML="Dragon-to-Carpet";
         }
 	
     }
@@ -222,10 +225,13 @@ function render() {
 		//pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
         
         if (tweenFactor <= 0.0) {
-            goingToCircle = true;
-            document.getElementById('caption-for-the-goal').innerHTML="Genie-to-circle";
+			if(bounce){
+				goingToCircle = !goingToCircle;
+			}
+            document.getElementById('caption-for-the-goal').innerHTML="Carpet-to-Dragon";
         }           
     }
+	
 	gl.uniform4f(u_colorLocation, 1.0*tweenFactor, 1.0*tweenFactor, 1.0*tweenFactor, 1);
 	gl.uniformMatrix4fv( projection, false, flatten(pMatrix) );
 	
@@ -235,10 +241,10 @@ function render() {
 }
 
 window.onkeyup = function(e) {
-	//debugger;
    var key = e.keyCode ? e.keyCode : e.which;
-	// 82 == 'r'
+	
    if (key == 82) {
+	    // 82 == 'r'
 		goingToCircle = !goingToCircle;
    }else if(key == 38){
 	   // key up
@@ -248,8 +254,10 @@ window.onkeyup = function(e) {
 	   tweenRate = Math.max(tweenRate - .01, .0001);
    }else if( key == 69){
 	   //explode
-	   tweenRate = -.03
+	   tweenRate = -.05;
+   }else if(key == 66){
+	   bounce = !bounce;
    }else{
-	   tweenRate = .015;
+	   tweenRate = .15;
    }
 }
