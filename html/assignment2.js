@@ -251,7 +251,7 @@ window.onkeyup = function(e) {
 	   tweenRate = Math.min(tweenRate + .01, .3);
    }else if(key == 40){
 	   // key down
-	   tweenRate = Math.max(tweenRate - .01, .0001);
+	   tweenRate = Math.max(tweenRate - .005, .0001);
    }else if( key == 69){
 	   //explode
 	   tweenRate = -.05;
