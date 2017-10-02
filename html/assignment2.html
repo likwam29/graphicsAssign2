@@ -12,18 +12,17 @@ uniform mat4 projection;
 void main()
 {
    gl_Position = projection * ((1.0 - tween) * sPosition + tween * gPosition);
-    gl_PointSize = 2.0;
+   gl_PointSize = 1.5;
 }
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
 precision highp float;
-uniform vec4 u_Color;
+uniform float tween;
 
 void main()
 {
-    //gl_FragColor = u_color;
-	gl_FragColor = vec4(1.0,1.0, 1.0, 1.0 );
+	gl_FragColor = vec4((1.0-tween) + .01,0.00,tween + .01,1.0);
 }
 </script>
 
@@ -45,12 +44,13 @@ void main()
 <br/>
 <div>
 	<ul style="list-style-type:circle">
+		<li>Seizure Warning. If you press the up arrow too many times it could cause some to have seizures.</li>
 		<li>Press R to reverse the direction of the morph</li>
 		<li>Press B to activate/deactive bounce</li>
 		<li>Press the up arrow to speed up the morph</li>
 		<li>Press the down arrow to slow down the morph</li>
 		<li>Press E to see a kicka$$ explosion</li>
-		<li>Press any other key other than the ones listed above to coalesce the fractal</li>
+		<li>Press any other key other than the ones listed above to coalesce the fractal. Pressing the up arrow while this is happening will speed up the process</li>
 	</ul>
 </div>
 

@@ -1,14 +1,15 @@
-// genie-to-circle.js
+// Matthew Likwarz and Sean Mitchell
+// Assignment 2
+// Golly-Gee_Whiz: Made colors morph dynamically between red and blue. Added keystroke event handlers that will speed up and slow down the morph rate,
+//                 repeat/bounce the morph, and finally explode the fractal out. There is also a reset condidtion by pressing any key other than R, E, B, up, and down.
+// Internet Sources: boiler plate code taken from http://csf11.acs.uwosh.edu/371-17/demos/story/ then click on the morphing genie to circle from September 20
 
-// Morph the genie into a circle.  Illustrates tweening with
-// interleaved attributes in the vertex buffer
-
-const numpts  = 14000;                // Number of points on each curve
+const numpts  = 14000;
 var gl;
 var vertices = [];
-var size = 0.25;          // Genie parameter
-var tweenLoc;    // Location of the shader's uniform tweening variable
-var goingToCircle = true;
+var size = 0.25;
+var tweenLoc; // Location of the shader's uniform tweening variable
+var morph = true;
 var bounce = false;
 var tweenFactor = 0.0;
 var canvas;
@@ -16,28 +17,26 @@ var tweenRate = 0.015;
 
 var pMatrix;
 var projection;
-var u_colorLocation;
 
 // this one messes with the dragon
 var firstFrac = {
-	LEFT: -14.5,
-	RIGHT: 14.75,
-	BOTTOM: -5.5,
-	TOP: 15.0
+	LEFT: -11.5,
+	RIGHT: 11.75,
+	BOTTOM: -2.5,
+	TOP: 12.0
 };
 
 // this one messes with carpet
 var secondFrac = {
-	LEFT: -10.0,
-	RIGHT: 10.0,
-	BOTTOM: -10.0,
-	TOP: 10.0
+	LEFT: -6.0,
+	RIGHT: 6.0,
+	BOTTOM: -6.0,
+	TOP: 6.0
 };
 
 window.onload = function init(){
     canvas = document.getElementById( "gl-canvas" );
     
-    //    gl = WebGLUtils.setupWebGL( canvas );
     gl = WebGLDebugUtils.makeDebugContext( canvas.getContext("webgl") ); // For debugging
     if ( !gl ) { alert( "WebGL isn't available" );
                }
@@ -98,8 +97,6 @@ window.onload = function init(){
             // of the first generic vertex attribute in the array.
                           );
     gl.enableVertexAttribArray( gPosition );
-	
-	u_colorLocation = gl.getUniformLocation(program, "u_Color");
 
     tweenLoc = gl.getUniformLocation(program, "tween");
 	
@@ -172,43 +169,23 @@ function generateFractalPoints () {
     }
 };
 
-
-function genieAndCircle(size) {
-    const NUM = 300;
-    var i, fact, fact_now, fact7, fact8;
-    
-    fact = 2.0 * Math.PI / NUM;
-    for (i = 0; i < NUM; ++i) {
-        fact_now = fact * i;
-        fact7 = fact_now * 7;
-        fact8 = fact_now * 8;
-	// A genie vertex coordinate
-        vertices.push( vec2(size * (Math.cos(fact_now) + Math.sin(fact8)),
-                            size * (2.0 * Math.sin(fact_now) + Math.sin(fact7))));
-	// A circle vertex coordinate
-        vertices.push( vec2(Math.cos(fact_now), Math.sin(fact_now)));
-    }
-};
-
 function render() {
 
     gl.clear( gl.COLOR_BUFFER_BIT );
 	
 	var left, right, bottom, top;
 
-    if (goingToCircle) {
+    if (morph) {
 		tweenFactor = Math.min(tweenFactor + tweenRate, 1.0);
 		left = (tweenFactor * firstFrac.LEFT) + ((1-tweenFactor) * secondFrac.LEFT);
 		right = (tweenFactor * firstFrac.RIGHT) + ((1-tweenFactor) * secondFrac.RIGHT); 
 		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
 		top = (tweenFactor * firstFrac.TOP) + ((1-tweenFactor) * secondFrac.TOP); 		
 		pMatrix = ortho(left, right, bottom, top, -1.0, 1.0);
-		
-		//pMatrix = ortho(secondFrac.LEFT, secondFrac.RIGHT, secondFrac.BOTTOM, secondFrac.TOP, -1.0, 1.0);
         
         if (tweenFactor >= 1.0)  {
 			if(bounce){
-				goingToCircle = !goingToCircle;
+				morph = !morph;
 			}
             document.getElementById('caption-for-the-goal').innerHTML="Dragon-to-Carpet";
         }
@@ -221,18 +198,15 @@ function render() {
 		bottom = (tweenFactor * firstFrac.BOTTOM) + ((1-tweenFactor) * secondFrac.BOTTOM); 
 		top = (tweenFactor * firstFrac.TOP) + ((1-tweenFactor) * secondFrac.TOP);
 		pMatrix = ortho(left, right, bottom, top, -1.0, 1.0);
-		
-		//pMatrix = ortho(firstFrac.LEFT, firstFrac.RIGHT, firstFrac.BOTTOM, firstFrac.TOP, -1.0, 1.0);
         
         if (tweenFactor <= 0.0) {
 			if(bounce){
-				goingToCircle = !goingToCircle;
+				morph = !morph;
 			}
             document.getElementById('caption-for-the-goal').innerHTML="Carpet-to-Dragon";
         }           
     }
 	
-	gl.uniform4f(u_colorLocation, 1.0*tweenFactor, 1.0*tweenFactor, 1.0*tweenFactor, 1);
 	gl.uniformMatrix4fv( projection, false, flatten(pMatrix) );
 	
     gl.uniform1f(tweenLoc, tweenFactor);
@@ -245,10 +219,10 @@ window.onkeyup = function(e) {
 	
    if (key == 82) {
 	    // 82 == 'r'
-		goingToCircle = !goingToCircle;
+		morph = !morph;
    }else if(key == 38){
 	   // key up
-	   tweenRate = Math.min(tweenRate + .01, .3);
+	   tweenRate = Math.min(tweenRate + .01, .5);
    }else if(key == 40){
 	   // key down
 	   tweenRate = Math.max(tweenRate - .005, .0001);
@@ -256,8 +230,10 @@ window.onkeyup = function(e) {
 	   //explode
 	   tweenRate = -.05;
    }else if(key == 66){
+	   // 66 == 'b'
 	   bounce = !bounce;
    }else{
-	   tweenRate = .15;
+	   tweenRate = 0.015;
+	   bounce = false;
    }
 }
